@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-// import { counter } from 'counter';
+import { counter } from './counter';
 
 const market = observable({
   selectedItems: [],
@@ -9,11 +9,11 @@ const market = observable({
       this.selectedItems.push({
         name,
         price,
-        count: 1,
+        count: counter.number,
       });
       return;
     }
-    exists.count++;
+    exists.count += counter.number;
   },
   take(name) {
     const itemToTake = this.selectedItems.find((item) => item.name === name);
@@ -23,7 +23,6 @@ const market = observable({
     }
   },
   get total() {
-    console.log('종합');
     return this.selectedItems.reduce((pre, curr) => {
       return pre + curr.price * curr.count
     }, 0);
